@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:16
+    container_name: fp_db
+    restart: always
+    environment:
+      POSTGRES_USER: fp_user
+      POSTGRES_PASSWORD: fp_pass
+      POSTGRES_DB: fp_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - fp_pgdata:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    container_name: fp_adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  fp_pgdata:
